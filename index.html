@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>معرض السيارات</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      direction: rtl;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .search {
+      width: 100%;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .search input {
+      padding: 10px;
+      width: 80%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      background-color: #fff;
+      color: #333;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: space-around;
+      gap: 10px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .filters select {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      background-color: #fff;
+      color: #333;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: row-reverse; /* الصورة على اليسار */
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+
+    .card img {
+      width: 200px;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 20px;
+      flex: 1;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #444;
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .card ul li {
+      margin-bottom: 5px;
+    }
+
+    .card-buttons {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .like-btn {
+      background-color: #eee;
+      color: red;
+      font-size: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+    }
+
+    .share-btn {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .whatsapp-btn {
+      background-color: #25D366;
+      color: white;
+      text-decoration: none;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+<h1>معرض السيارات</h1>
+
+<div class="search">
+  <input type="text" id="search" placeholder="ابحث عن السيارة" oninput="filterCards()">
+</div>
+
+<div class="filters">
+  <select id="brandFilter" onchange="filterCards()">
+    <option value="">الشركة</option>
+    <option value="تويوتا">تويوتا</option>
+    <option value="فورد">فورد</option>
+    <option value="مرسيدس">مرسيدس</option>
+  </select>
+
+  <select id="modelFilter" onchange="filterCards()">
+    <option value="">الموديل</option>
+    <!-- سيتم توليد السنوات ديناميكيًا من 2000 إلى 2025 -->
+  </select>
+
+  <select id="typeFilter" onchange="filterCards()">
+    <option value="">النوع</option>
+    <option value="سيدان">سيدان</option>
+    <option value="دفع رباعي">دفع رباعي</option>
+  </select>
+
+  <select id="gearFilter" onchange="filterCards()">
+    <option value="">القير</option>
+    <option value="اوتوماتيك">أوتوماتيك</option>
+    <option value="عادي">عادي</option>
+  </select>
+
+  <select id="fuelFilter" onchange="filterCards()">
+    <option value="">الوقود</option>
+    <option value="بنزين">بنزين</option>
+    <option value="ديزل">ديزل</option>
+    <option value="كهرباء">كهرباء</option>
+  </select>
+</div>
+
+<div class="card" data-brand="تويوتا" data-name="كورولا" data-model="2024" data-type="سيدان" data-gear="اوتوماتيك" data-fuel="بنزين">
+  <img src="https://toyota-cms-media.s3.amazonaws.com/wp-content/uploads/2023/10/Corolla-XLE-2024.png" alt="كورولا">
+  <div class="card-content">
+    <h2>تويوتا كورولا 2024</h2>
+    <ul>
+      <li>الشركة: تويوتا</li>
+      <li>الموديل: 2024</li>
+      <li>النوع: سيدان</li>
+      <li>القير: أوتوماتيك</li>
+      <li>الوقود: بنزين</li>
+      <li>السلندر: 4</li>
+      <li>القوة: 121 حصان</li>
+      <li>السعة: 1600 CC</li>
+      <li>اللون: أبيض</li>
+    </ul>
+    <div class="card-buttons">
+      <button class="btn like-btn" onclick="toggleLike(this)">♡</button>
+      <button class="btn share-btn" onclick="navigator.share({ title: 'كورولا', url: location.href })">مشاركة</button>
+      <a class="btn whatsapp-btn" href="https://wa.me/966534553706" target="_blank">واتساب</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-brand="تويوتا" data-name="كامري" data-model="2024" data-type="سيدان" data-gear="اوتوماتيك" data-fuel="بنزين">
+  <img src="https://www.toyota.com/imgix/responsive/images/gallery/2024/camry/camry_white.png?auto=compress,format&fit=clamp&w=720&h=405" alt="كامري">
+  <div class="card-content">
+    <h2>تويوتا كامري 2024</h2>
+    <ul>
+      <li>الشركة: تويوتا</li>
+      <li>الموديل: 2024</li>
+      <li>النوع: سيدان</li>
+      <li>القير: أوتوماتيك</li>
+      <li>الوقود: بنزين</li>
+      <li>السلندر: 4</li>
+      <li>القوة: 203 حصان</li>
+      <li>السعة: 2500 CC</li>
+      <li>اللون: فضي</li>
+    </ul>
+    <div class="card-buttons">
+      <button class="btn like-btn" onclick="toggleLike(this)">♡</button>
+      <button class="btn share-btn" onclick="navigator.share({ title: 'كامري', url: location.href })">مشاركة</button>
+      <a class="btn whatsapp-btn" href="https://wa.me/966534553706" target="_blank">واتساب</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleLike(btn) {
+    btn.textContent = btn.textContent === '♡' ? '♥' : '♡';
+  }
+
+  function filterCards() {
+    const search = document.getElementById("search").value.toLowerCase();
+    const brand = document.getElementById("brandFilter").value;
+    const model = document.getElementById("modelFilter").value;
+    const type = document.getElementById("typeFilter").value;
+    const gear = document.getElementById("gearFilter").value;
+    const fuel = document.getElementById("fuelFilter").value;
+
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+      const match =
+        (search === "" || card.dataset.name.toLowerCase().includes(search)) &&
+        (brand === "" || card.dataset.brand === brand) &&
+        (model === "" || card.dataset.model === model) &&
+        (type === "" || card.dataset.type === type) &&
+        (gear === "" || card.dataset.gear === gear) &&
+        (fuel === "" || card.dataset.fuel === fuel);
+
+      card.style.display = match ? "flex" : "none";
+    });
+  }
+
+  // توليد قائمة الموديلات من 2000 إلى 2025 تلقائيًا
+  const modelSelect = document.getElementById("modelFilter");
+  for (let year = 2025; year >= 2000; year--) {
+    const option = document.createElement("option");
+    option.value = String(year);
+    option.textContent = year;
+    modelSelect.appendChild(option);
+  }
+</script>
+
+</body>
+</html>
