@@ -37,14 +37,15 @@
 
     .filters {
       display: flex;
-      justify-content: space-around;
-      gap: 10px;
-      margin-bottom: 30px;
       flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 20px;
+      margin-bottom: 30px;
     }
 
     .filters select {
       padding: 10px;
+      width: 160px;
       border-radius: 5px;
       border: 1px solid #ccc;
       font-size: 16px;
@@ -54,7 +55,7 @@
 
     .card {
       display: flex;
-      flex-direction: row-reverse; /* الصورة على اليسار */
+      flex-direction: row-reverse;
       background-color: #fff;
       border-radius: 10px;
       overflow: hidden;
@@ -146,7 +147,6 @@
 
   <select id="modelFilter" onchange="filterCards()">
     <option value="">الموديل</option>
-    <!-- سيتم توليد السنوات ديناميكيًا من 2000 إلى 2025 -->
   </select>
 
   <select id="typeFilter" onchange="filterCards()">
@@ -155,21 +155,30 @@
     <option value="دفع رباعي">دفع رباعي</option>
   </select>
 
-  <select id="gearFilter" onchange="filterCards()">
-    <option value="">القير</option>
-    <option value="اوتوماتيك">أوتوماتيك</option>
-    <option value="عادي">عادي</option>
-  </select>
-
   <select id="fuelFilter" onchange="filterCards()">
     <option value="">الوقود</option>
     <option value="بنزين">بنزين</option>
     <option value="ديزل">ديزل</option>
     <option value="كهرباء">كهرباء</option>
   </select>
+
+  <select id="colorFilter" onchange="filterCards()">
+    <option value="">اللون</option>
+    <option value="أبيض">أبيض</option>
+    <option value="فضي">فضي</option>
+    <option value="أسود">أسود</option>
+    <option value="أزرق">أزرق</option>
+    <option value="أحمر">أحمر</option>
+  </select>
+
+  <select id="gearFilter" onchange="filterCards()">
+    <option value="">القير</option>
+    <option value="اوتوماتيك">أوتوماتيك</option>
+    <option value="عادي">عادي</option>
+  </select>
 </div>
 
-<div class="card" data-brand="تويوتا" data-name="كورولا" data-model="2024" data-type="سيدان" data-gear="اوتوماتيك" data-fuel="بنزين">
+<div class="card" data-brand="تويوتا" data-name="كورولا" data-model="2024" data-type="سيدان" data-gear="اوتوماتيك" data-fuel="بنزين" data-color="أبيض">
   <img src="https://toyota-cms-media.s3.amazonaws.com/wp-content/uploads/2023/10/Corolla-XLE-2024.png" alt="كورولا">
   <div class="card-content">
     <h2>تويوتا كورولا 2024</h2>
@@ -192,7 +201,7 @@
   </div>
 </div>
 
-<div class="card" data-brand="تويوتا" data-name="كامري" data-model="2024" data-type="سيدان" data-gear="اوتوماتيك" data-fuel="بنزين">
+<div class="card" data-brand="تويوتا" data-name="كامري" data-model="2024" data-type="سيدان" data-gear="اوتوماتيك" data-fuel="بنزين" data-color="فضي">
   <img src="https://www.toyota.com/imgix/responsive/images/gallery/2024/camry/camry_white.png?auto=compress,format&fit=clamp&w=720&h=405" alt="كامري">
   <div class="card-content">
     <h2>تويوتا كامري 2024</h2>
@@ -227,6 +236,7 @@
     const type = document.getElementById("typeFilter").value;
     const gear = document.getElementById("gearFilter").value;
     const fuel = document.getElementById("fuelFilter").value;
+    const color = document.getElementById("colorFilter").value;
 
     const cards = document.querySelectorAll(".card");
 
@@ -237,13 +247,13 @@
         (model === "" || card.dataset.model === model) &&
         (type === "" || card.dataset.type === type) &&
         (gear === "" || card.dataset.gear === gear) &&
-        (fuel === "" || card.dataset.fuel === fuel);
+        (fuel === "" || card.dataset.fuel === fuel) &&
+        (color === "" || card.dataset.color === color);
 
       card.style.display = match ? "flex" : "none";
     });
   }
 
-  // توليد قائمة الموديلات من 2000 إلى 2025 تلقائيًا
   const modelSelect = document.getElementById("modelFilter");
   for (let year = 2025; year >= 2000; year--) {
     const option = document.createElement("option");
